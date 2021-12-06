@@ -20,6 +20,7 @@
 @Version     : 0.1-dev
 """
 import requests
+import os
 
 
 DEFAULT_HEADER = {
@@ -128,12 +129,14 @@ def upload_ncov_message(cookie, config):
     # 上报成功
     if r.json()['e'] == 0:
         print("上报成功(^_^)")
+        os.system("bash /home/xieyi/code/bark.sh '晨午晚检小助手' '谢意上报成功！' ")
         return 0
 
     # 上报失败
     else:
         print("上报出现错误(T_T)")
         print("错误信息: {}".format(r.json()['m']))
+        os.system("bash /home/xieyi/code/bark.sh '晨午晚检小助手' '谢意错误信息：{}'".format(r.json()['m']))
         return 1
 
 # branch
